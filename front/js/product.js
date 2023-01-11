@@ -1,0 +1,1 @@
+//need to display the id on the product.html page w/ console.log
