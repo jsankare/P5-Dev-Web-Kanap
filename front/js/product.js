@@ -29,21 +29,45 @@ async function showArticle() {
         option.text = color;
         colors.appendChild(option);
     });
-}
 
-// Call the function
-showArticle();
-
-// add event listener to button
-
-async function addToCart() {
-
-    const numberOfItems = document.getElementById('quantity')
-    // const color = document.getFromColorOption 
+    // Get elements from the DOM
+    const numberOfItems = document.getElementById('quantity');
+    const color = document.getElementById('colors');
     const button = document.getElementById('addToCart');
-    button.addEventListener('click', function() {
-        console.log('button has been clicked !'); // add to localstorage here
-    });
-}
 
-addToCart ()
+    // Check if the cart exists in local storage, if not create an empty array
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart === null) {
+        cart = [];
+    }
+
+    // Add click event listener to the button
+    button.addEventListener('click', function() {
+        // Get quantity and color values
+        let quantity = numberOfItems.value;
+        let itemColor = color.value;
+        const cartItem = {
+            // create an object with properties quantity, color and id
+            quantity : quantity,
+            color : itemColor,
+            id : id,
+        }
+        // check if quantity is between 1-100
+        if (quantity < 1 || quantity > 100) {
+            alert('La quantité selectionnée est invalide')
+        }
+        // check if the color is not empty
+        if (itemColor === '') {
+            alert('vous n\'avez pas sélectionné de couleur')
+        }
+        // if both conditions are valid
+        else {
+            // add the item to cart
+            cart.push(cartItem);
+            // save the cart in local storage
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    });
+
+}
+showArticle();
