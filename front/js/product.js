@@ -2,9 +2,7 @@ async function showArticle() {
     // Get the current url
     const url = new URL(window.location.href);
     // Get the id parameter from the url
-    const id = url.searchParams.get("id");
-
-    console.log(id) // Test
+    const id = url.searchParams.get("id"); 
 
     // Make a request to the API endpoint to fetch the specific product using the id
     const response = await fetch(`http://localhost:3000/api/products/${id}`);
@@ -26,7 +24,7 @@ async function showArticle() {
 
     // Add the color
     data.colors.forEach(color => {
-        let option = document.createElement("option");
+        let option = document.createElement('option');
         option.value = color;
         option.text = color;
         colors.appendChild(option);
@@ -35,3 +33,15 @@ async function showArticle() {
 
 // Call the function
 showArticle();
+
+// add event listener to button
+
+async function addToCart() {
+
+    const button = document.getElementById('addToCart');
+    button.addEventListener('click', function() {
+        console.log('button has been clicked !');
+    });
+}
+
+addToCart ()
