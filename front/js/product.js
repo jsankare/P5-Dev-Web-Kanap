@@ -38,9 +38,11 @@ showArticle();
 
 async function addToCart() {
 
+    const numberOfItems = document.getElementById('quantity')
+    // const color = document.getFromColorOption 
     const button = document.getElementById('addToCart');
     button.addEventListener('click', function() {
-        console.log('button has been clicked !');
+        console.log('button has been clicked !'); // add to localstorage here
     });
 }
 
