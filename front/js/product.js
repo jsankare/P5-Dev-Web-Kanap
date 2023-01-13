@@ -52,13 +52,15 @@ async function showArticle() {
             color : itemColor,
             id : id,
         }
-        // check if quantity is between 1-100
-        if (quantity < 1 || quantity > 100) {
-            alert('La quantité selectionnée est invalide')
-        }
         // check if the color is not empty
         if (itemColor === '') {
-            alert('vous n\'avez pas sélectionné de couleur')
+            alert('Veuillez selectionner une couleur');
+            return
+        }
+        // check if quantity is between 1-100
+        if (quantity < 1 || quantity > 100) {
+            alert('Veuillez selectionner une quantité comprise entre 1 et 99');
+            return
         }
         // if both conditions are valid
         else {
@@ -66,6 +68,7 @@ async function showArticle() {
             cart.push(cartItem);
             // save the cart in local storage
             localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Votre sélection a bien été ajoutée dans le panier');
         }
     });
 
