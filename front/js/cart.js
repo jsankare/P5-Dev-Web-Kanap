@@ -7,7 +7,7 @@ function getUniqueIds(cart) {
 
     // Check if the current item's ID is already in the list of unique IDs
     for (const id of ids) {
-      if (item.id == id) {
+      if (item.id === id) {
         found = true
       }
     }
@@ -37,7 +37,7 @@ async function getProducts(ids) {
 async function showCart() {
 
     // get the cart from local storage and parse it into a JavaScript object
-    let cart = JSON.parse(localStorage.getItem('cart'))
+    let cart = JSON.parse(localStorage.getItem('cart')) || []
     //get the unique ids of the items in cart
     const ids = getUniqueIds(cart)
     //get all the products details of the items in the cart
@@ -52,15 +52,16 @@ async function showCart() {
     let selectedProduct = []
 
     //if the cart is empty 
-    if (cart === null) {
+    if (!cart || cart.length === 0) {
         console.log('le panier est vide')
     }
     else {
         //iterate through the cart items and display them
         for (const item of cart) {
           for (const product of products) {
+
             //get the product details of the current item
-            if (product._id == item.id) {
+            if (product._id === item.id) {
               selectedProduct = product
             }
           }
@@ -90,11 +91,10 @@ async function showCart() {
         //calculate the total Quantity and total Price
         totalQuantityValue += +item.quantity 
         totalPriceValue += item.quantity * selectedProduct.price
-        }
-        
-        //display the total Quantity and total Price
-        totalPrice.innerHTML = `${totalPriceValue}`
-        totalQuantity.innerHTML = totalQuantityValue
+        }  
     }
+    //display the total Quantity and total Price
+    totalPrice.innerHTML = `${totalPriceValue}`
+    totalQuantity.innerHTML = totalQuantityValue
 }
 showCart()
