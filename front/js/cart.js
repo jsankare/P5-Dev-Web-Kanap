@@ -1,15 +1,18 @@
 function getUniqueIds(cart) {
   let ids = []
 
+  // Iterate through the cart items
   for (const item of cart) {
     let found = false
 
+    // Check if the current item's ID is already in the list of unique IDs
     for (const id of ids) {
       if (item.id == id) {
         found = true
       }
     }
 
+    // If the current item's ID is not in the list, add it
     if (found === false) {
       ids.push(item.id)
     }
@@ -29,24 +32,34 @@ async function getProducts(ids) {
   return products
 }
 
+//need to add a function to delete items in cart
+
 async function showCart() {
 
+    // get the cart from local storage and parse it into a JavaScript object
     let cart = JSON.parse(localStorage.getItem('cart'))
+    //get the unique ids of the items in cart
     const ids = getUniqueIds(cart)
+    //get all the products details of the items in the cart
     const products = await getProducts(ids)
+    //get the element where we will display the items in cart
     const cartSection = document.getElementById('cart__items')
+    //get the elements where we will display the total Quantity and total Price
     const totalQuantity = document.getElementById('totalQuantity')
     const totalPrice = document.getElementById('totalPrice')
     let totalQuantityValue = 0
     let totalPriceValue = 0
     let selectedProduct = []
 
+    //if the cart is empty 
     if (cart === null) {
         console.log('le panier est vide')
     }
     else {
+        //iterate through the cart items and display them
         for (const item of cart) {
           for (const product of products) {
+            //get the product details of the current item
             if (product._id == item.id) {
               selectedProduct = product
             }
@@ -65,7 +78,7 @@ async function showCart() {
                   <div class="cart__item__content__settings">
                     <div class="cart__item__content__settings__quantity">
                       <p>Qté : ${item.quantity}</p>
-                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
+                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${item.quantity}">
                     </div>
                     <div class="cart__item__content__settings__delete">
                       <p class="deleteItem">Supprimer</p>
@@ -74,12 +87,13 @@ async function showCart() {
                 </div>
               </article>
         `
-        console.log('le panier n\'est pas vide')
+        //calculate the total Quantity and total Price
         totalQuantityValue += +item.quantity 
         totalPriceValue += item.quantity * selectedProduct.price
         }
         
-        totalPrice.innerHTML = `${totalPriceValue} €`
+        //display the total Quantity and total Price
+        totalPrice.innerHTML = `${totalPriceValue}`
         totalQuantity.innerHTML = totalQuantityValue
     }
 }
