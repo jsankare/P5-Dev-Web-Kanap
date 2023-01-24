@@ -66,16 +66,27 @@ async function showArticle() {
         else {
             //check if item with same id && color already present in cart
             //if yes, add quandtity to quantity in cart
-            
-            //else continue
+            let itemIndex = -1
 
-            // add the item to cart
-            cart.push(cartItem);
-            // save the cart in local storage
-            localStorage.setItem('cart', JSON.stringify(cart));
-            alert('Votre sélection a bien été ajoutée dans le panier');
+            for (let i = 0; i < cart.length; i++) {
+                if (cart[i].id === id && cart[i].color === itemColor) {
+                    itemIndex = i
+                    break;
+                }
+            }
+
+            if (itemIndex !== -1) {
+                cart[itemIndex].quantity =  Number(cart[itemIndex].quantity) + Number(quantity)
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+
+            else {
+                cart.push(cartItem);
+                // save the cart in local storage
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert('Votre sélection a bien été ajoutée dans le panier');
+            }
         }
     });
-
 }
 showArticle();
