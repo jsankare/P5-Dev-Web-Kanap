@@ -64,6 +64,11 @@ async function showArticle() {
         }
         // if both conditions are valid
         else {
+            //check if item with same id && color already present in cart
+            //if yes, add quandtity to quantity in cart
+            
+            //else continue
+
             // add the item to cart
             cart.push(cartItem);
             // save the cart in local storage
