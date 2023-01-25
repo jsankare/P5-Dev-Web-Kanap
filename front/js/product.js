@@ -89,6 +89,6 @@ async function showArticle() {
                 alert('Votre sélection a bien été ajoutée dans le panier');
             }
         }
-    });
+    })
 }
 showArticle();

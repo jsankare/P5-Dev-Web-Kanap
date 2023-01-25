@@ -103,3 +103,48 @@ showCart()
 // when user clicks on order:
 // if input not good {display error message in p below} (declare id names as variables, loop for first three and 1 more for email, use regex to trim, use ids with ${} to innerhtml)
 // else make a 'contact' object with the input from the form and an array of products
+
+function finishOrder() {
+
+  const firstName = document.getElementById('firstName')
+  const lastName = document.getElementById('lastName')
+  const address = document.getElementById('address')
+  const city = document.getElementById('city')
+  const email = document.getElementById('email')
+  const button = document.getElementById('order')
+  const firstNameError = document.getElementById('firstNameErrorMsg')
+  const lastNameError = document.getElementById('lastNameErrorMsg')
+  const addressError = document.getElementById('addressErrorMsg')
+  const cityError = document.getElementById('cityErrorMsg')
+  const emailError = document.getElementById('emailErrorMsg')
+
+  //create an array to swap with $ instead of endless if ?
+
+
+  button.addEventListener('click', function() {
+    if (firstName.value == '') {
+      firstNameError.innerHTML = `Commande impossible, vous n'avez pas rempli de prénom`
+    }
+    if (lastName.value == '') {
+      lastNameError.innerHTML = `Commande impossible, vous n'avez pas rempli de nom`
+    }
+    if (address.value == '') {
+      addressError.innerHTML = `Commande impossible, vous n'avez pas rempli d'adresse`
+    }
+    if (city.value == '') {
+      cityError.innerHTML = `Commande impossible, vous n'avez pas rempli de ville`
+    }
+    if (email.value == '') {
+      emailError.innerHTML = `Commande impossible, vous n'avez pas rempli d'email`
+    }
+    if (firstName.value != '' && lastName.value != '' && address.value != '' && city.value != '' && email.value != '') {
+      alert('la commande est  passée')
+      //get all values from above
+      //get cart content
+      //create an object with everything in it
+      //create order number
+      window.open('confirmation.html')
+    }
+  })
+}
+finishOrder()
