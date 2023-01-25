@@ -99,13 +99,8 @@ async function showCart() {
 }
 showCart()
 
-// function oder
-// when user clicks on order:
-// if input not good {display error message in p below} (declare id names as variables, loop for first three and 1 more for email, use regex to trim, use ids with ${} to innerhtml)
-// else make a 'contact' object with the input from the form and an array of products
-
-const inputs = {
-  firstName : document.getElementById('firstName'),
+const inputs = { // create an object called inputs
+  firstName : document.getElementById('firstName'), // stores the firstName input element in the inputs object
   lastName : document.getElementById('lastName'),
   address : document.getElementById('address'),
   city : document.getElementById('city'),
@@ -128,57 +123,34 @@ const finishOrder = () => {
   button.addEventListener('click', function() {
     let error = false
 
-    // 'in' and not 'of' cause else it is not iterable
+    // 'In' and not 'of' cause else it is not iterable
+    // Iterate over the inputs obect and check if the value is empty
     for (let input in inputs) {
       if (!inputs[input].value) {
+        // If the value is empty, innerHTML the <p> associated
         errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas rempli de ${input}`
         error = true
       }
     }
 
+    // If there is no error
     if (!error) {
-      alert(`Votre commande a bien été passée`)
-      //get all values from above
-      //get cart content
-      //create an object with everything in it
-      //create order number
+      // get all values from above and puts them in an object contact
+      const contact = {
+        firstName : inputs.firstName.value,
+        lastName : inputs.lastName.value,
+        address : inputs.address.value,
+        city : inputs.city.value,
+        email : inputs.email.value,
+      }
+
+      // get cart content
+      const cart = JSON.parse(localStorage.getItem('cart'))
+      // create an object with everything in it
+      // create order number 
+      alert(`Votre commande a bien été passée, cliquez 'ok' pour avoir votre confirmation`)
       window.open('confirmation.html')
     }
   })
 }
-
 finishOrder()
-
-// const firstName = document.getElementById('firstName')
-// const lastName = document.getElementById('lastName')
-// const address = document.getElementById('address')
-// const city = document.getElementById('city')
-// const email = document.getElementById('email')
-// const button = document.getElementById('order')
-// const firstNameError = document.getElementById('firstNameErrorMsg')
-// const lastNameError = document.getElementById('lastNameErrorMsg')
-// const addressError = document.getElementById('addressErrorMsg')
-// const cityError = document.getElementById('cityErrorMsg')
-// const emailError = document.getElementById('emailErrorMsg')
-
-// button.addEventListener('click', function() {
-//   if (firstName.value == '') {
-//     firstNameError.innerHTML = `Commande impossible, vous n'avez pas rempli de prénom`
-//   }
-//   if (lastName.value == '') {
-//     lastNameError.innerHTML = `Commande impossible, vous n'avez pas rempli de nom`
-//   }
-//   if (address.value == '') {
-//     addressError.innerHTML = `Commande impossible, vous n'avez pas rempli d'adresse`
-//   }
-//   if (city.value == '') {
-//     cityError.innerHTML = `Commande impossible, vous n'avez pas rempli de ville`
-//   }
-//   if (email.value == '') {
-//     emailError.innerHTML = `Commande impossible, vous n'avez pas rempli d'email`
-//   }
-//   if (firstName.value != '' && lastName.value != '' && address.value != '' && city.value != '' && email.value != '') {
-//     alert('la commande est  passée')
-//     window.open('confirmation.html')
-//   }
-// })
