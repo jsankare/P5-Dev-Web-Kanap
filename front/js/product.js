@@ -64,19 +64,21 @@ async function showArticle() {
         }
         // if both conditions are valid
         else {
-            //check if item with same id && color already present in cart
-            //if yes, add quandtity to quantity in cart
             let itemIndex = -1
 
             for (let i = 0; i < cart.length; i++) {
+                //Checking if the current item's id and color match the new item's id and color
                 if (cart[i].id === id && cart[i].color === itemColor) {
                     itemIndex = i
                     break;
                 }
             }
 
+            //Check if the item is already in the cart (itemIndex will be >= 0)
             if (itemIndex !== -1) {
+                // If the item is already in the cart, add the new quantity to the existing quantity
                 cart[itemIndex].quantity =  Number(cart[itemIndex].quantity) + Number(quantity)
+                //update local storage
                 localStorage.setItem('cart', JSON.stringify(cart));
             }
 

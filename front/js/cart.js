@@ -98,3 +98,8 @@ async function showCart() {
     totalQuantity.innerHTML = totalQuantityValue
 }
 showCart()
+
+// function oder
+// when user clicks on order:
+// if input not good {display error message in p below} (declare id names as variables, loop for first three and 1 more for email, use regex to trim, use ids with ${} to innerhtml)
+// else make a 'contact' object with the input from the form and an array of products
