@@ -138,6 +138,10 @@ const finishOrder = () => {
 
     if (!error) {
       alert(`Votre commande a bien été passée`)
+      //get all values from above
+      //get cart content
+      //create an object with everything in it
+      //create order number
       window.open('confirmation.html')
     }
   })
@@ -175,10 +179,6 @@ finishOrder()
 //   }
 //   if (firstName.value != '' && lastName.value != '' && address.value != '' && city.value != '' && email.value != '') {
 //     alert('la commande est  passée')
-//     //get all values from above
-//     //get cart content
-//     //create an object with everything in it
-//     //create order number
 //     window.open('confirmation.html')
 //   }
 // })
