@@ -128,7 +128,7 @@ const finishOrder = () => {
     for (let input in inputs) {
       if (!inputs[input].value) {
         // If the value is empty, innerHTML the <p> associated
-        errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas rempli de ${input}`
+        errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas rempli votre ${input}`
         error = true
       }
     }
@@ -146,10 +146,25 @@ const finishOrder = () => {
 
       // get cart content
       const cart = JSON.parse(localStorage.getItem('cart'))
+
+      // create order number (voir uuid doc ?)
+      const currentDate  = new Date().toISOString().slice(0,22).replace(/\-/g,"").replace(/\:/g,"").replace(/\./g,"").replace(/T/g,"")
+      console.log(currentDate)
+      const randomNumber = Math.floor(Math.random() * 90000) + 10000
+      console.log(randomNumber)
+      const orderNumber = `${currentDate}${randomNumber}`
+      console.log(orderNumber)
+
       // create an object with everything in it
-      // create order number 
-      alert(`Votre commande a bien été passée, cliquez 'ok' pour avoir votre confirmation`)
+      const order = {
+        contact : contact,
+        cart : cart,
+        confirmationNumber : orderNumber,
+      }
+
+      alert(`Merci de votre commande, cliquez 'Ok' pour accéder à votre confirmation`)
       window.open('confirmation.html')
+      // clear cart(panier items)
     }
   })
 }
