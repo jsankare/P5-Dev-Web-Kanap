@@ -164,7 +164,7 @@ const finishOrder = () => {
 
       alert(`Merci de votre commande, cliquez 'Ok' pour accéder à votre confirmation`)
       window.open('confirmation.html')
-      // clear cart(panier items)
+      // clear localStorage
     }
   })
 }
