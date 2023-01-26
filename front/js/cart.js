@@ -147,24 +147,28 @@ const finishOrder = () => {
       // get cart content
       const cart = JSON.parse(localStorage.getItem('cart'))
 
-      // create order number (voir uuid doc ?)
+      // create order number
       const currentDate  = new Date().toISOString().slice(0,22).replace(/\-/g,"").replace(/\:/g,"").replace(/\./g,"").replace(/T/g,"")
-      console.log(currentDate)
       const randomNumber = Math.floor(Math.random() * 90000) + 10000
-      console.log(randomNumber)
       const orderNumber = `${currentDate}${randomNumber}`
-      console.log(orderNumber)
 
-      // create an object with everything in it
+      // create an object with contact, cart and confirmation number
       const order = {
         contact : contact,
         cart : cart,
         confirmationNumber : orderNumber,
       }
 
+      // clear localStorage('cart) && add order
+      // it replaces the value for each order, fix that
+      const orders = JSON.parse(localStorage.getItem('orders' ?? []))
+
       alert(`Merci de votre commande, cliquez 'Ok' pour accéder à votre confirmation`)
       window.open('confirmation.html')
-      // clear localStorage
+
+      orders.push(order)
+      localStorage.setItem('orders', JSON.stringify(orders))
+      localStorage.removeItem('cart')
     }
   })
 }
