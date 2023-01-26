@@ -32,7 +32,8 @@ async function getProducts(ids) {
   return products
 }
 
-//need to add a function to delete items in cart
+// add a function to delete items in cart
+// add a function to modify items in cart
 
 async function showCart() {
 
