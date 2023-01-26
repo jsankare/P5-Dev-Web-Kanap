@@ -159,15 +159,17 @@ const finishOrder = () => {
         confirmationNumber : orderNumber,
       }
 
-      // clear localStorage('cart) && add order
-      // it replaces the value for each order, fix that
-      const orders = JSON.parse(localStorage.getItem('orders' ?? []))
+      // Get the existing orders from localStorage or if it doesn't exist, create an empty array
+      const orders = JSON.parse(localStorage.getItem('orders')) ?? []
 
       alert(`Merci de votre commande, cliquez 'Ok' pour accéder à votre confirmation`)
       window.open('confirmation.html')
 
+      // Add the current order to the orders array
       orders.push(order)
+      // Save the updated orders array to localStorage
       localStorage.setItem('orders', JSON.stringify(orders))
+      // Remove the cart from localStorage
       localStorage.removeItem('cart')
     }
   })
