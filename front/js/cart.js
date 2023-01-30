@@ -32,9 +32,6 @@ async function getProducts(ids) {
   return products
 }
 
-// add a function to delete items in cart
-// add a function to modify items in cart
-
 async function showCart() {
 
     // get the cart from local storage and parse it into a JavaScript object
@@ -100,6 +97,9 @@ async function showCart() {
 }
 showCart()
 
+// add a function to delete items in cart
+// add a function to modify items in cart
+
 const inputs = { // create an object called inputs
   firstName : document.getElementById('firstName'), // stores the firstName input element in the inputs object
   lastName : document.getElementById('lastName'),
@@ -148,16 +148,10 @@ const finishOrder = () => {
       // get cart content
       const cart = JSON.parse(localStorage.getItem('cart'))
 
-      // create order number
-      const currentDate  = new Date().toISOString().slice(0,22).replace(/\-/g,"").replace(/\:/g,"").replace(/\./g,"").replace(/T/g,"")
-      const randomNumber = Math.floor(Math.random() * 90000) + 10000
-      const orderNumber = `${currentDate}${randomNumber}`
-
       // create an object with contact, cart and confirmation number
       const order = {
         contact : contact,
         cart : cart,
-        confirmationNumber : orderNumber,
       }
 
       // Get the existing orders from localStorage or if it doesn't exist, create an empty array
