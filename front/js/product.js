@@ -47,44 +47,44 @@ async function showArticle() {
         let quantity = numberOfItems.value;
         let itemColor = color.value;
         const cartItem = {
-            // create an object with properties quantity, color and id
+            // Create an object with properties quantity, color and id
             quantity : quantity,
             color : itemColor,
             id : id,
         }
-        // check if the color is not empty
+        // Check if the color is not empty
         if (itemColor === '') {
             alert('Veuillez selectionner une couleur');
             return
         }
-        // check if quantity is between 1-100
+        // Check if quantity is between 1-100
         if (quantity < 1 || quantity > 100) {
             alert('Veuillez selectionner une quantité comprise entre 1 et 99');
             return
         }
-        // if both conditions are valid
+        // If both conditions are valid
         else {
             let itemIndex = -1
 
             for (let i = 0; i < cart.length; i++) {
-                //Checking if the current item's id and color match the new item's id and color
+                // Checking if the current item's id and color match the new item's id and color
                 if (cart[i].id === id && cart[i].color === itemColor) {
                     itemIndex = i
                     break;
                 }
             }
 
-            //Check if the item is already in the cart (itemIndex will be >= 0)
+            // Check if the item is already in the cart (itemIndex will be >= 0)
             if (itemIndex !== -1) {
                 // If the item is already in the cart, add the new quantity to the existing quantity
                 cart[itemIndex].quantity =  Number(cart[itemIndex].quantity) + Number(quantity)
-                //update local storage
+                // Update local storage
                 localStorage.setItem('cart', JSON.stringify(cart));
             }
 
             else {
                 cart.push(cartItem);
-                // save the cart in local storage
+                // Save the cart in local storage
                 localStorage.setItem('cart', JSON.stringify(cart));
                 alert('Votre sélection a bien été ajoutée dans le panier');
             }

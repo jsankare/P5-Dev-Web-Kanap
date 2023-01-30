@@ -34,31 +34,31 @@ async function getProducts(ids) {
 
 async function showCart() {
 
-    // get the cart from local storage and parse it into a JavaScript object
+    // Get the cart from local storage and parse it into a JavaScript object
     let cart = JSON.parse(localStorage.getItem('cart')) || []
-    //get the unique ids of the items in cart
+    // Get the unique ids of the items in cart
     const ids = getUniqueIds(cart)
-    //get all the products details of the items in the cart
+    // Get all the products details of the items in the cart
     const products = await getProducts(ids)
-    //get the element where we will display the items in cart
+    // Get the element where we will display the items in cart
     const cartSection = document.getElementById('cart__items')
-    //get the elements where we will display the total Quantity and total Price
+    // Get the elements where we will display the total Quantity and total Price
     const totalQuantity = document.getElementById('totalQuantity')
     const totalPrice = document.getElementById('totalPrice')
     let totalQuantityValue = 0
     let totalPriceValue = 0
     let selectedProduct = []
 
-    //if the cart is empty 
+    // If the cart is empty 
     if (!cart || cart.length === 0) {
         console.log('le panier est vide')
     }
     else {
-        //iterate through the cart items and display them
+        // Iterate through the cart items and display them
         for (const item of cart) {
           for (const product of products) {
 
-            //get the product details of the current item
+            // Get the product details of the current item
             if (product._id === item.id) {
               selectedProduct = product
             }
@@ -86,19 +86,19 @@ async function showCart() {
                 </div>
               </article>
         `
-        //calculate the total Quantity and total Price
+        // Calculate the total Quantity and total Price
         totalQuantityValue += +item.quantity 
         totalPriceValue += item.quantity * selectedProduct.price
         }  
     }
-    //display the total Quantity and total Price
+    // Display the total Quantity and total Price
     totalPrice.innerHTML = `${totalPriceValue}`
     totalQuantity.innerHTML = totalQuantityValue
 }
 showCart()
 
-// add a function to delete items in cart
-// add a function to modify items in cart
+// Add a function to delete items in cart
+// Add a function to modify items in cart
 
 const inputs = { // create an object called inputs
   firstName : document.getElementById('firstName'), // stores the firstName input element in the inputs object
@@ -136,7 +136,7 @@ const finishOrder = () => {
 
     // If there is no error
     if (!error) {
-      // get all values from above and puts them in an object contact
+      // Get all values from above and puts them in an object contact
       const contact = {
         firstName : inputs.firstName.value,
         lastName : inputs.lastName.value,
@@ -145,10 +145,10 @@ const finishOrder = () => {
         email : inputs.email.value,
       }
 
-      // get cart content
+      // Get cart content
       const cart = JSON.parse(localStorage.getItem('cart'))
 
-      // create an object with contact, cart and confirmation number
+      // Create an object with contact, cart and confirmation number
       const order = {
         contact : contact,
         cart : cart,
