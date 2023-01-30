@@ -1,5 +1,4 @@
 function orderNumber() {
-
     // Get dom element
     const orderInput = document.getElementById('orderId')
 

@@ -94,14 +94,18 @@ async function showCart() {
     // Display the total Quantity and total Price
     totalPrice.innerHTML = `${totalPriceValue}`
     totalQuantity.innerHTML = totalQuantityValue
+
+    // Delete items here
+    const deleteItems = document.getElementsByClassName('deleteItem')
+    deleteItems.addEventListener('click', function{
+
+    })
 }
 showCart()
 
-// Add a function to delete items in cart
-// Add a function to modify items in cart
 
-const inputs = { // create an object called inputs
-  firstName : document.getElementById('firstName'), // stores the firstName input element in the inputs object
+const inputs = { // Create an object called inputs
+  firstName : document.getElementById('firstName'), // Stores the firstName input element in the inputs object
   lastName : document.getElementById('lastName'),
   address : document.getElementById('address'),
   city : document.getElementById('city'),
