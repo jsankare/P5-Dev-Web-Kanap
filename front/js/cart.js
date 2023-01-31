@@ -95,11 +95,56 @@ async function showCart() {
     totalPrice.innerHTML = `${totalPriceValue}`
     totalQuantity.innerHTML = totalQuantityValue
 
-    // Delete items here
-    const deleteItems = document.getElementsByClassName('deleteItem')
-    deleteItems.addEventListener('click', function{
+    // Delete and modify items from cart here
+    const deleteButtons = document.getElementsByClassName('deleteItem')
 
-    })
+    for (const deleteButton of deleteButtons) {
+      // Add a click event listener to every delete button
+      deleteButton.addEventListener('click', deleteItem)
+    }
+
+    function deleteItem(event) {
+
+      // Get the parent element of the delete button (the cart item)
+      const cartItem = event.target.parentElement.parentElement.parentElement
+      // ? cartItem.innerHTML = "" ? garde les lignes blanches affichées entre les produits
+
+      const idItem = cartItem.getAttribute('data-id')
+      const colorItem = cartItem.getAttribute('data-color')
+
+      // Get cart from localstorage and parses it
+      let cart = JSON.parse(localStorage.getItem('cart')) || []
+
+      cart = cart.filter(item => item.id !== idItem || item.color !== colorItem)
+    
+      localStorage.setItem('cart', JSON.stringify(cart))
+
+      cartItem.remove()
+
+      updateTotals()
+
+      function updateTotals() {
+        const totalQuantity = document.getElementById('totalQuantity')
+        const totalPrice = document.getElementById('totalPrice')
+        let totalQuantityValue = 0
+        let totalPriceValue = 0
+
+        const products = document.getElementsByClassName('cart_Item')
+
+        for (const product of products) {
+          const quantity = +product.querySelector('.itemQuantity').value
+          const price = +product.querySelector('p:last-child').textContent.split(' ')[0]
+
+          totalQuantityValue += quantity
+          totalPriceValue += quantity * price
+        }
+
+        // Display the updated total Quantity and total Price
+        totalQuantity.innerHTML = totalQuantityValue
+        totalPrice.innerHTML = `${totalPriceValue}`
+
+    }
+    
 }
 showCart()
 
