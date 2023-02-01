@@ -129,12 +129,12 @@ showCart()
 // Form ----------------------------------
 
 const errorMessageTexts = {
-  firstName: "Prénom",
-  lastName: "Nom",
-  address: "Adresse",
-  city: "Ville",
-  email: "Email",
-  button: "Bouton",
+  firstName: "prénom",
+  lastName: "nom",
+  address: "adresse",
+  city: "ville",
+  email: "email",
+  button: "bouton",
 }
 
 const inputs = {
@@ -163,7 +163,7 @@ const finishOrder = () => {
 
     for (let input in inputs) {
       if (!inputs[input].value) {
-        errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas rempli votre ${errorMessageTexts[input].toLowerCase()}`
+        errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas rempli votre ${errorMessageTexts[input]}`
         error = true
       }
     }
