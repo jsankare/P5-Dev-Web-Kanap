@@ -128,81 +128,72 @@ showCart()
 
 // Form ----------------------------------
 
-const inputs = { // Create an object called inputs
-  firstName : document.getElementById('firstName'), // Stores the firstName input element in the inputs object
-  lastName : document.getElementById('lastName'),
-  address : document.getElementById('address'),
-  city : document.getElementById('city'),
-  email : document.getElementById('email'),
-  button : document.getElementById('order'),
+const errorMessageTexts = {
+  firstName: "Prénom",
+  lastName: "Nom",
+  address: "Adresse",
+  city: "Ville",
+  email: "Email",
+  button: "Bouton",
 }
+
+const inputs = {
+  firstName: document.getElementById("firstName"),
+  lastName: document.getElementById("lastName"),
+  address: document.getElementById("address"),
+  city: document.getElementById("city"),
+  email: document.getElementById("email"),
+  button: document.getElementById("order"),
+};
 
 const errorMessages = {
-  firstName : document.getElementById('firstNameErrorMsg'),
-  lastName : document.getElementById('lastNameErrorMsg'),
-  address : document.getElementById('addressErrorMsg'),
-  city : document.getElementById('cityErrorMsg'),
-  email : document.getElementById('emailErrorMsg'),
-  button : document.getElementById('orderErrorMsg'),
-}
+  firstName: document.getElementById("firstNameErrorMsg"),
+  lastName: document.getElementById("lastNameErrorMsg"),
+  address: document.getElementById("addressErrorMsg"),
+  city: document.getElementById("cityErrorMsg"),
+  email: document.getElementById("emailErrorMsg"),
+  button: document.getElementById("orderErrorMsg"),
+};
 
-const errorMessagesTexts = {
-  firstName : "Prénom",
-  lastName : "Nom",
-  address : "Adresse",
-  city : "Ville",
-  email : "Email",
-}
-
-const button = document.getElementById('order')
+const button = document.getElementById("order")
 
 const finishOrder = () => {
-  button.addEventListener('click', function() {
+  button.addEventListener("click", function () {
     let error = false
 
-    // 'In' and not 'of' cause else it is not iterable
-    // Iterate over the inputs obect and check if the value is empty
     for (let input in inputs) {
       if (!inputs[input].value) {
-        // If the value is empty, innerHTML the <p> associated
-        errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas rempli votre ${errorMessageTexts[input]}` // need to display correct name in error message
+        errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas rempli votre ${errorMessageTexts[input].toLowerCase()}`
         error = true
       }
     }
 
-    // If there is no error
     if (!error) {
-      // Get all values from above and puts them in an object contact
       const contact = {
-        firstName : inputs.firstName.value,
-        lastName : inputs.lastName.value,
-        address : inputs.address.value,
-        city : inputs.city.value,
-        email : inputs.email.value,
-      }
+        firstName: inputs.firstName.value,
+        lastName: inputs.lastName.value,
+        address: inputs.address.value,
+        city: inputs.city.value,
+        email: inputs.email.value,
+      };
 
-      // Get cart content
-      const cart = JSON.parse(localStorage.getItem('cart'))
+      const cart = JSON.parse(localStorage.getItem("cart"))
 
-      // Create an object with contact, cart and confirmation number
       const order = {
-        contact : contact,
-        cart : cart,
-      }
+        contact: contact,
+        cart: cart,
+      };
 
-      // Get the existing orders from localStorage or if it doesn't exist, create an empty array
-      const orders = JSON.parse(localStorage.getItem('orders')) ?? []
+      const orders = JSON.parse(localStorage.getItem("orders")) || []
 
       alert(`Merci de votre commande, cliquez 'Ok' pour accéder à votre confirmation`)
-      window.open('confirmation.html')
+      window.open("confirmation.html")
 
-      // Add the current order to the orders array
       orders.push(order)
-      // Save the updated orders array to localStorage
-      localStorage.setItem('orders', JSON.stringify(orders))
-      // Remove the cart from localStorage
-      localStorage.removeItem('cart')
+      localStorage.setItem("orders", JSON.stringify(orders))
+      localStorage.removeItem("cart")
     }
   })
 }
+
 finishOrder()
