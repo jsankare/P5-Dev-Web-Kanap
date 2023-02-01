@@ -108,7 +108,6 @@ async function showCart() {
 
       // Get the parent element of the delete button (the cart item)
       const cartItem = event.target.parentElement.parentElement.parentElement.parentElement
-      // ? cartItem.innerHTML = "" ? garde les lignes blanches affichées entre les produits
 
       const idItem = cartItem.getAttribute('data-id')
       const colorItem = cartItem.getAttribute('data-color')
@@ -121,9 +120,11 @@ async function showCart() {
       localStorage.setItem('cart', JSON.stringify(cart))
 
       cartItem.remove()
+      window.location.reload()
   }
 }
 showCart()
+
 
 // Form ----------------------------------
 
@@ -145,6 +146,14 @@ const errorMessages = {
   button : document.getElementById('orderErrorMsg'),
 }
 
+const errorMessagesTexts = {
+  firstName : "Prénom",
+  lastName : "Nom",
+  address : "Adresse",
+  city : "Ville",
+  email : "Email",
+}
+
 const button = document.getElementById('order')
 
 const finishOrder = () => {
@@ -156,7 +165,7 @@ const finishOrder = () => {
     for (let input in inputs) {
       if (!inputs[input].value) {
         // If the value is empty, innerHTML the <p> associated
-        errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas rempli votre ${input}`
+        errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas rempli votre ${errorMessageTexts[input]}` // need to display correct name in error message
         error = true
       }
     }
