@@ -106,7 +106,7 @@ async function showCart() {
     function deleteItem(event) {
 
       // Get the parent element of the delete button (the cart item)
-      const cartItem = event.target.parentElement.parentElement.parentElement
+      const cartItem = event.target.parentElement.parentElement.parentElement.parentElement
       // ? cartItem.innerHTML = "" ? garde les lignes blanches affichées entre les produits
 
       const idItem = cartItem.getAttribute('data-id')
@@ -131,20 +131,20 @@ async function showCart() {
 
         const products = document.getElementsByClassName('cart_Item')
 
-        for (const product of products) {
-          const quantity = +product.querySelector('.itemQuantity').value
-          const price = +product.querySelector('p:last-child').textContent.split(' ')[0]
+        // for (const product of products) {
+        //   const quantity = +product.querySelector('.itemQuantity').value
+        //   const price = +product.querySelector('p:last-child').textContent.split(' ')[0]
 
-          totalQuantityValue += quantity
-          totalPriceValue += quantity * price
-        }
+        //   totalQuantityValue += quantity
+        //   totalPriceValue += quantity * price
+        // }
 
         // Display the updated total Quantity and total Price
         totalQuantity.innerHTML = totalQuantityValue
         totalPrice.innerHTML = `${totalPriceValue}`
 
     }
-    
+  }
 }
 showCart()
 

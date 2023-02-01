@@ -79,6 +79,7 @@ async function showArticle() {
                 // If the item is already in the cart, add the new quantity to the existing quantity
                 cart[itemIndex].quantity =  Number(cart[itemIndex].quantity) + Number(quantity)
                 // Update local storage
+                alert(`Votre ajout au panier a bien été pris en compte.`)
                 localStorage.setItem('cart', JSON.stringify(cart));
             }
 
