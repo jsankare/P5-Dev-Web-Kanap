@@ -1,3 +1,4 @@
+// cart -------------------------------------
 function getUniqueIds(cart) {
   let ids = []
 
@@ -120,34 +121,11 @@ async function showCart() {
       localStorage.setItem('cart', JSON.stringify(cart))
 
       cartItem.remove()
-
-      updateTotals()
-
-      function updateTotals() {
-        const totalQuantity = document.getElementById('totalQuantity')
-        const totalPrice = document.getElementById('totalPrice')
-        let totalQuantityValue = 0
-        let totalPriceValue = 0
-
-        const products = document.getElementsByClassName('cart_Item')
-
-        // for (const product of products) {
-        //   const quantity = +product.querySelector('.itemQuantity').value
-        //   const price = +product.querySelector('p:last-child').textContent.split(' ')[0]
-
-        //   totalQuantityValue += quantity
-        //   totalPriceValue += quantity * price
-        // }
-
-        // Display the updated total Quantity and total Price
-        totalQuantity.innerHTML = totalQuantityValue
-        totalPrice.innerHTML = `${totalPriceValue}`
-
-    }
   }
 }
 showCart()
 
+// Form ----------------------------------
 
 const inputs = { // Create an object called inputs
   firstName : document.getElementById('firstName'), // Stores the firstName input element in the inputs object
