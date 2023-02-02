@@ -35,95 +35,111 @@ async function getProducts(ids) {
 
 async function showCart() {
 
-    // Get the cart from local storage and parse it into a JavaScript object
-    let cart = JSON.parse(localStorage.getItem('cart')) || []
-    // Get the unique ids of the items in cart
-    const ids = getUniqueIds(cart)
-    // Get all the products details of the items in the cart
-    const products = await getProducts(ids)
-    // Get the element where we will display the items in cart
-    const cartSection = document.getElementById('cart__items')
-    // Get the elements where we will display the total Quantity and total Price
-    const totalQuantity = document.getElementById('totalQuantity')
-    const totalPrice = document.getElementById('totalPrice')
-    let totalQuantityValue = 0
-    let totalPriceValue = 0
-    let selectedProduct = []
+  // Get the cart from local storage and parse it into a JavaScript object
+  let cart = JSON.parse(localStorage.getItem('cart')) || []
+  // Get the unique ids of the items in cart
+  const ids = getUniqueIds(cart)
+  // Get all the products details of the items in the cart
+  const products = await getProducts(ids)
+  // Get the element where we will display the items in cart
+  const cartSection = document.getElementById('cart__items')
+  // Get the elements where we will display the total Quantity and total Price
+  const totalQuantity = document.getElementById('totalQuantity')
+  const totalPrice = document.getElementById('totalPrice')
+  let totalQuantityValue = 0
+  let totalPriceValue = 0
+  let selectedProduct = []
 
-    // If the cart is empty 
-    if (!cart || cart.length === 0) {
-        console.log('le panier est vide')
-    }
-    else {
-        // Iterate through the cart items and display them
-        for (const item of cart) {
-          for (const product of products) {
+  // If the cart is empty 
+  if (!cart || cart.length === 0) {
+      console.log('le panier est vide')
+  }
+  else {
+      // Iterate through the cart items and display them
+      for (const item of cart) {
+        for (const product of products) {
 
-            // Get the product details of the current item
-            if (product._id === item.id) {
-              selectedProduct = product
-            }
+          // Get the product details of the current item
+          if (product._id === item.id) {
+            selectedProduct = product
           }
-          cartSection.innerHTML += `
-            <article class="cart__item" data-id="${item.id}" data-color="${item.color}">
-                <div class="cart__item__img">
-                  <img src="${selectedProduct.imageUrl}" alt="${selectedProduct.altTxt}">
+        }
+        cartSection.innerHTML += `
+          <article class="cart__item" data-id="${item.id}" data-color="${item.color}">
+              <div class="cart__item__img">
+                <img src="${selectedProduct.imageUrl}" alt="${selectedProduct.altTxt}">
+              </div>
+              <div class="cart__item__content">
+                <div class="cart__item__content__description">
+                  <h2>${selectedProduct.name}</h2>
+                  <p>${item.color}</p>
+                  <p>${selectedProduct.price} €</p>
                 </div>
-                <div class="cart__item__content">
-                  <div class="cart__item__content__description">
-                    <h2>${selectedProduct.name}</h2>
-                    <p>${item.color}</p>
-                    <p>${selectedProduct.price} €</p>
+                <div class="cart__item__content__settings">
+                  <div class="cart__item__content__settings__quantity">
+                    <p>Qté : ${item.quantity}</p>
+                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${item.quantity}">
                   </div>
-                  <div class="cart__item__content__settings">
-                    <div class="cart__item__content__settings__quantity">
-                      <p>Qté : ${item.quantity}</p>
-                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${item.quantity}">
-                    </div>
-                    <div class="cart__item__content__settings__delete">
-                      <p class="deleteItem">Supprimer</p>
-                    </div>
+                  <div class="cart__item__content__settings__delete">
+                    <p class="deleteItem">Supprimer</p>
                   </div>
                 </div>
-              </article>
-        `
-        // Calculate the total Quantity and total Price
-        totalQuantityValue += +item.quantity 
-        totalPriceValue += item.quantity * selectedProduct.price
-        }  
-    }
-    // Display the total Quantity and total Price
-    totalPrice.innerHTML = `${totalPriceValue}`
-    totalQuantity.innerHTML = totalQuantityValue
+              </div>
+            </article>
+      `
+      // Calculate the total Quantity and total Price
+      totalQuantityValue += +item.quantity 
+      totalPriceValue += item.quantity * selectedProduct.price
+      }  
+  }
+  // Display the total Quantity and total Price
+  totalPrice.innerHTML = `${totalPriceValue}`
+  totalQuantity.innerHTML = totalQuantityValue
 
-    // Delete and modify items from cart here
-    const deleteButtons = document.getElementsByClassName('deleteItem')
+  // Delete and modify items from cart here
+  const deleteButtons = document.getElementsByClassName('deleteItem')
 
-    for (const deleteButton of deleteButtons) {
-      // Add a click event listener to every delete button
-      deleteButton.addEventListener('click', deleteItem)
-    }
+  for (const deleteButton of deleteButtons) {
+    // Add a click event listener to every delete button
+    deleteButton.addEventListener('click', deleteItem)
+  }
 
-    function deleteItem(event) {
+  function deleteItem(event) {
 
-      // Get the parent element of the delete button (the cart item)
-      const cartItem = event.target.parentElement.parentElement.parentElement.parentElement
+    // Get the parent element of the delete button (the cart item)
+    const cartItem = event.target.parentElement.parentElement.parentElement.parentElement
 
-      const idItem = cartItem.getAttribute('data-id')
-      const colorItem = cartItem.getAttribute('data-color')
+    const idItem = cartItem.getAttribute('data-id')
+    const colorItem = cartItem.getAttribute('data-color')
 
-      // Get cart from localstorage and parses it
-      let cart = JSON.parse(localStorage.getItem('cart')) || []
+    // Get cart from localstorage and parses it
+    let cart = JSON.parse(localStorage.getItem('cart')) || []
 
-      cart = cart.filter(item => item.id !== idItem || item.color !== colorItem)
-    
-      localStorage.setItem('cart', JSON.stringify(cart))
+    cart = cart.filter(item => item.id !== idItem || item.color !== colorItem)
+  
+    localStorage.setItem('cart', JSON.stringify(cart))
 
-      cartItem.remove()
-      window.location.reload()
+    cartItem.remove()
+    window.location.reload()
+  }
+
+  const modifyInputs = document.getElementsByClassName('itemQuantity')
+  console.log(modifyInputs)
+
+  for (const modifyInput of modifyInputs) {
+    console.log(modifyInput)
+    modifyInput.addEventListener('change', changeItem)
+  }
+  
+  function changeItem(event) {
+
   }
 }
 showCart()
+
+// const cart = JSON.parse(localStorage.getItem('cart')) || []
+// localStorage.setItem("cart", JSON.stringify(cart))
+// window.location.reload
 
 
 // Form ----------------------------------
