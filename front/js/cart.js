@@ -177,7 +177,7 @@ const button = document.getElementById("order")
 // Regex
 
 const nameRegex = /^[a-zA-Z]+$/;
-const addressRegex = /^[a-zA-Z0-9\s,'-]*$/
+const addressRegex = /^[a-zA-Z0-9\s,'-]$/
 const cityRegex = /^[a-zA-Z\s]+$/
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
@@ -187,41 +187,45 @@ const finishOrder = () => {
     let error = false
 
     if (!nameRegex.test(inputs.firstName.value)) {
-      errorMessages.firstName.innerHTML = "Veuillez entrer un prénom valide.";
+      errorMessages.firstName.innerHTML = "Veuillez entrer un prénom valide."
       error = true;
+    }
+    if (nameRegex.test(inputs.firstName.value)) {
+      errorMessages.firstName.innerHTML = ""
+      error = false;
     }
     if (!nameRegex.test(inputs.lastName.value)) {
-      errorMessages.lastName.innerHTML = "Veuillez entrer un nom de famille valide.";
+      errorMessages.lastName.innerHTML = "Veuillez entrer un nom de famille valide."
       error = true;
+    }
+    if (nameRegex.test(inputs.lastName.value)) {
+      errorMessages.lastName.innerHTML = ""
+      error = false;
     }
     if (!addressRegex.test(inputs.address.value)) {
-      errorMessages.address.innerHTML = "Veuillez entrer une adresse valide.";
+      errorMessages.address.innerHTML = "Veuillez entrer une adresse valide."
       error = true;
+    }
+    if (addressRegex.test(inputs.address.value)) {
+      errorMessages.address.innerHTML = ""
+      error = false;
     }
     if (!cityRegex.test(inputs.city.value)) {
-      errorMessages.city.innerHTML = "Veuillez entrer une ville valide.";
+      errorMessages.city.innerHTML = "Veuillez entrer une ville valide."
       error = true;
+    }
+    if (cityRegex.test(inputs.city.value)) {
+      errorMessages.city.innerHTML = ""
+      error = false;
     }
     if (!emailRegex.test(inputs.email.value)) {
-      errorMessages.email.innerHTML = "Veuillez entrer un email valide.";
+      errorMessages.email.innerHTML = "Veuillez entrer un email valide."
       error = true;
     }
-
-    // for (let input in inputs) {
-    //   if (!inputs[input].value) {
-    //     errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas correctement rempli votre ${errorMessageTexts[input]}`
-    //     error = true
-    //   }
-    //   else {
-    //     switch (input) {
-    //       case 'firstName' :
-    //         if (!namesRegex.test(inputs[input].value)) {
-    //           errorMessages[input].innerHTML = `Le ${errorMessageTexts[input]} n'est pas valide`;
-    //           error = true;
-    //         }
-    //     }
-    //   }
-    // }
+    if (emailRegex.test(inputs.email.value)) {
+      errorMessages.email.innerHTML = ""
+      error = false;
+    }
 
     if (!error) {
       const contact = {
