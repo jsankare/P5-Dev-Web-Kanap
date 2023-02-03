@@ -78,7 +78,7 @@ async function showCart() {
                 </div>
                 <div class="cart__item__content__settings">
                   <div class="cart__item__content__settings__quantity">
-                    <p>Qté : ${item.quantity}</p>
+                    <p>Quantité : ${item.quantity}</p>
                     <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${item.quantity}">
                   </div>
                   <div class="cart__item__content__settings__delete">
@@ -125,22 +125,58 @@ async function showCart() {
   }
 
   const modifyInputs = document.getElementsByClassName('itemQuantity')
-  console.log(modifyInputs)
 
   for (const modifyInput of modifyInputs) {
-    console.log(modifyInput)
     modifyInput.addEventListener('change', changeItem)
   }
   
   function changeItem(event) {
-
+    // Get the parent element of the input (the cart item)
+    const cartItem = event.target.parentElement.parentElement.parentElement.parentElement
+    
+    const idItem = cartItem.getAttribute('data-id')
+    const colorItem = cartItem.getAttribute('data-color')
+  
+    // Get cart from localstorage and parse it
+    let cart = JSON.parse(localStorage.getItem('cart')) || []
+  
+    // Find the item with the matching id and color
+    let item = cart.find(item => item.id === idItem && item.color === colorItem)
+    
+    // Update the item's quantity
+    item.quantity = +event.target.value
+    
+    // Update the total quantity and total price
+    let totalQuantityValue = 0
+    let totalPriceValue = 0
+    
+    for (const item of cart) {
+      totalQuantityValue += +item.quantity
+      totalPriceValue += item.quantity * products.find(product => product._id === item.id).price
+    }
+    
+    // Update the elements that display the total quantity and total price
+    totalQuantity.innerHTML = totalQuantityValue
+    totalPrice.innerHTML = totalPriceValue
+    
+    // Update the elements that display the quantity of each product
+    const itemQuantities = document.getElementsByClassName('itemQuantity')
+    for (const itemQuantity of itemQuantities) {
+      if (itemQuantity.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id') === idItem && itemQuantity.parentElement.parentElement.parentElement.parentElement.getAttribute('data-color') === colorItem) {
+        itemQuantity.previousSibling.innerHTML = `Qté : ${event.target.value}`
+        itemQuantity.value = event.target.value;
+      }
+    }
+    
+    // Save the updated cart to localstorage
+    localStorage.setItem('cart', JSON.stringify(cart))
   }
 }
 showCart()
 
-// const cart = JSON.parse(localStorage.getItem('cart')) || []
-// localStorage.setItem("cart", JSON.stringify(cart))
-// window.location.reload
+const cart = JSON.parse(localStorage.getItem('cart')) || []
+localStorage.setItem("cart", JSON.stringify(cart))
+window.location.reload
 
 
 // Form ----------------------------------
