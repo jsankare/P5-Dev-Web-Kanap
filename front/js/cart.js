@@ -46,13 +46,14 @@ async function showCart() {
   // Get the elements where we will display the total Quantity and total Price
   const totalQuantity = document.getElementById('totalQuantity')
   const totalPrice = document.getElementById('totalPrice')
+  const cartTitle = document.querySelector('#cartAndFormContainer h1')
   let totalQuantityValue = 0
   let totalPriceValue = 0
   let selectedProduct = []
 
   // If the cart is empty 
   if (!cart || cart.length === 0) {
-      console.log('le panier est vide')
+    cartTitle.innerHTML = `Votre panier est vide`
   }
   else {
       // Iterate through the cart items and display them
@@ -173,16 +174,54 @@ const errorMessages = {
 
 const button = document.getElementById("order")
 
+// Regex
+
+const nameRegex = /^[a-zA-Z]+$/;
+const addressRegex = /^[a-zA-Z0-9\s,'-]*$/
+const cityRegex = /^[a-zA-Z\s]+$/
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
+
 const finishOrder = () => {
   button.addEventListener("click", function () {
     let error = false
 
-    for (let input in inputs) {
-      if (!inputs[input].value) {
-        errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas rempli votre ${errorMessageTexts[input]}`
-        error = true
-      }
+    if (!nameRegex.test(inputs.firstName.value)) {
+      errorMessages.firstName.innerHTML = "Veuillez entrer un prénom valide.";
+      error = true;
     }
+    if (!nameRegex.test(inputs.lastName.value)) {
+      errorMessages.lastName.innerHTML = "Veuillez entrer un nom de famille valide.";
+      error = true;
+    }
+    if (!addressRegex.test(inputs.address.value)) {
+      errorMessages.address.innerHTML = "Veuillez entrer une adresse valide.";
+      error = true;
+    }
+    if (!cityRegex.test(inputs.city.value)) {
+      errorMessages.city.innerHTML = "Veuillez entrer une ville valide.";
+      error = true;
+    }
+    if (!emailRegex.test(inputs.email.value)) {
+      errorMessages.email.innerHTML = "Veuillez entrer un email valide.";
+      error = true;
+    }
+
+    // for (let input in inputs) {
+    //   if (!inputs[input].value) {
+    //     errorMessages[input].innerHTML = `Commande impossible, vous n'avez pas correctement rempli votre ${errorMessageTexts[input]}`
+    //     error = true
+    //   }
+    //   else {
+    //     switch (input) {
+    //       case 'firstName' :
+    //         if (!namesRegex.test(inputs[input].value)) {
+    //           errorMessages[input].innerHTML = `Le ${errorMessageTexts[input]} n'est pas valide`;
+    //           error = true;
+    //         }
+    //     }
+    //   }
+    // }
 
     if (!error) {
       const contact = {
