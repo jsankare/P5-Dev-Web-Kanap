@@ -212,55 +212,48 @@ const button = document.getElementById("order")
 
 // Regex
 
-const nameRegex = /^[a-zA-Z]+$/;
-const addressRegex = /^[a-zA-Z0-9\s,'-]$/
+const nameRegex = /^[a-zA-Z]+$/
+const addressRegex = /^[a-zA-Z0-9\s,'-]+$/
 const cityRegex = /^[a-zA-Z\s]+$/
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
-
 const finishOrder = () => {
   button.addEventListener("click", function () {
-    let error = false
+    let error = false;
 
     if (!nameRegex.test(inputs.firstName.value)) {
       errorMessages.firstName.innerHTML = "Veuillez entrer un prénom valide."
       error = true;
-    }
-    if (nameRegex.test(inputs.firstName.value)) {
+    } else {
       errorMessages.firstName.innerHTML = ""
-      error = false;
     }
+
     if (!nameRegex.test(inputs.lastName.value)) {
       errorMessages.lastName.innerHTML = "Veuillez entrer un nom de famille valide."
       error = true;
-    }
-    if (nameRegex.test(inputs.lastName.value)) {
+    } else {
       errorMessages.lastName.innerHTML = ""
-      error = false;
     }
+
     if (!addressRegex.test(inputs.address.value)) {
       errorMessages.address.innerHTML = "Veuillez entrer une adresse valide."
       error = true;
-    }
-    if (addressRegex.test(inputs.address.value)) {
+    } else {
       errorMessages.address.innerHTML = ""
-      error = false;
     }
+
     if (!cityRegex.test(inputs.city.value)) {
       errorMessages.city.innerHTML = "Veuillez entrer une ville valide."
       error = true;
-    }
-    if (cityRegex.test(inputs.city.value)) {
+    } else {
       errorMessages.city.innerHTML = ""
-      error = false;
     }
+
     if (!emailRegex.test(inputs.email.value)) {
       errorMessages.email.innerHTML = "Veuillez entrer un email valide."
       error = true;
-    }
-    if (emailRegex.test(inputs.email.value)) {
+    } else {
       errorMessages.email.innerHTML = ""
-      error = false;
     }
 
     if (!error) {
@@ -272,23 +265,22 @@ const finishOrder = () => {
         email: inputs.email.value,
       };
 
-      const cart = JSON.parse(localStorage.getItem("cart"))
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
       const order = {
         contact: contact,
         cart: cart,
       };
 
-      const orders = JSON.parse(localStorage.getItem("orders")) || []
+      const orders = JSON.parse(localStorage.getItem("orders")) || [];
 
-      alert(`Merci de votre commande, cliquez 'Ok' pour accéder à votre confirmation`)
-      window.open("confirmation.html")
+      orders.push(order);
+      localStorage.setItem("orders", JSON.stringify(orders));
+      localStorage.removeItem("cart");
 
-      orders.push(order)
-      localStorage.setItem("orders", JSON.stringify(orders))
-      localStorage.removeItem("cart")
+      alert(`Merci de votre commande, cliquez 'Ok' pour accéder à votre confirmation`);
+      window.open("confirmation.html");
     }
-  })
-}
-
+  });
+};
 finishOrder()
