@@ -159,7 +159,7 @@ async function showCart() {
     totalQuantity.innerHTML = totalQuantityValue
     totalPrice.innerHTML = totalPriceValue
     
-    // Update the elements that display the quantity of each product -- doesn't update proprely
+    // Update the elements that display the quantity of each product
     const itemQuantities = document.getElementsByClassName('itemQuantity')
     for (const itemQuantity of itemQuantities) {
       if (itemQuantity.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id') === idItem && itemQuantity.parentElement.parentElement.parentElement.parentElement.getAttribute('data-color') === colorItem) {
