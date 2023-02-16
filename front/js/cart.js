@@ -142,6 +142,13 @@ async function showCart() {
   
     // Find the item with the matching id and color
     let item = cart.find(item => item.id === idItem && item.color === colorItem)
+
+    // Check correct value
+    if (event.target.value <= 0) {
+      alert(`Vous ne pouvez pas entrer moins de 1 article`)
+      console.log(event)
+      return
+    }
     
     // Update the item's quantity
     item.quantity = +event.target.value
