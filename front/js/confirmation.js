@@ -2,12 +2,13 @@ function orderNumber() {
     // Get dom element
     const orderInput = document.getElementById('orderId')
 
-    // Create order number
-    const currentDate  = new Date().toISOString().slice(0,22).replace(/\-/g,"").replace(/\:/g,"").replace(/\./g,"").replace(/T/g,"")
-    const randomNumber = Math.floor(Math.random() * 90000) + 10000
-    const orderNumber = `${currentDate}${randomNumber}`
+    // Get current URL
+    const url = new URL(window.location.href)
+
+    // Get orderId parameter from URL
+    const idNumber = url.searchParams.get(`orderId`)
     
     // Inject order number into html
-    orderInput.innerHTML = `${orderNumber}`
+    orderInput.innerHTML = `${idNumber}`
 }
 orderNumber()

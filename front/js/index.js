@@ -1,7 +1,7 @@
 // Defining an async function to fetch and display the articles
 async function getArticles() {
     // Making a request to the API endpoint to fetch the articles
-    const response = await fetch('http://localhost:3000/api/products');
+    const response = await fetch('http://localhost:3000/api/products')
     // Parsing the response to json
     const data = await response.json()
     // Accessing the DOM element with id 'items'

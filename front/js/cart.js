@@ -225,7 +225,7 @@ const cityRegex = /^[a-zA-Z\s]+$/
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
 const finishOrder = () => {
-  button.addEventListener("click", function (event) {
+  button.addEventListener("click", async function (event) {
     event.preventDefault()
     let error = false;
 
@@ -277,17 +277,20 @@ const finishOrder = () => {
 
       const order = {
         contact: contact,
-        cart: cart,
+        products: cart.map((elem) => elem.id)
       };
 
-      const orders = JSON.parse(localStorage.getItem("orders")) || []
+      const response = await fetch('http://localhost:3000/api/products/order', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body : JSON.stringify(order)
+      })
+      const data = await response.json()
+      console.log(data);
 
-      orders.push(order)
-      localStorage.setItem("orders", JSON.stringify(orders))
       localStorage.removeItem("cart")
 
-      alert(`Merci de votre commande, cliquez 'Ok' pour accéder à votre confirmation`)
-      window.open("confirmation.html")
+      window.open(`confirmation.html?orderId=${data.orderId}`, "_self")
     }
   })
 }
