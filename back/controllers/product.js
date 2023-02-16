@@ -44,7 +44,7 @@ exports.getOneProduct = (req, res, next) => {
  *   email: string
  * }
  * products: [string] <-- array of product _id
- *
+ *        
  */
 exports.orderProducts = (req, res, next) => {
   if (!req.body.contact ||

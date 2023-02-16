@@ -143,10 +143,10 @@ async function showCart() {
     // Find the item with the matching id and color
     let item = cart.find(item => item.id === idItem && item.color === colorItem)
 
-    // Check correct value
-    if (event.target.value <= 0) {
-      alert(`Vous ne pouvez pas entrer moins de 1 article`)
-      console.log(event)
+    // Check for correct value
+    if (event.target.value <= 0 || event.target.value > 100) {
+      alert(`Vous devez saisir entre 1 et 100 produits`)
+      event.target.value = item.quantity
       return
     }
     
@@ -171,7 +171,7 @@ async function showCart() {
     for (const itemQuantity of itemQuantities) {
       if (itemQuantity.parentElement.parentElement.parentElement.parentElement.getAttribute('data-id') === idItem && itemQuantity.parentElement.parentElement.parentElement.parentElement.getAttribute('data-color') === colorItem) {
         itemQuantity.previousElementSibling.innerHTML = `Quantité : ${event.target.value}`
-        itemQuantity.value = event.target.value;
+        itemQuantity.value = event.target.value
       }
     }
     
@@ -273,22 +273,22 @@ const finishOrder = () => {
         email: inputs.email.value,
       };
 
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cart = JSON.parse(localStorage.getItem("cart")) || []
 
       const order = {
         contact: contact,
         cart: cart,
       };
 
-      const orders = JSON.parse(localStorage.getItem("orders")) || [];
+      const orders = JSON.parse(localStorage.getItem("orders")) || []
 
-      orders.push(order);
-      localStorage.setItem("orders", JSON.stringify(orders));
-      localStorage.removeItem("cart");
+      orders.push(order)
+      localStorage.setItem("orders", JSON.stringify(orders))
+      localStorage.removeItem("cart")
 
-      alert(`Merci de votre commande, cliquez 'Ok' pour accéder à votre confirmation`);
-      window.open("confirmation.html");
+      alert(`Merci de votre commande, cliquez 'Ok' pour accéder à votre confirmation`)
+      window.open("confirmation.html")
     }
-  });
-};
+  })
+}
 finishOrder()
